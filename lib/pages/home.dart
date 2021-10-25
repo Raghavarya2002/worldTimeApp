@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     print(data);
 
     //set background
-   String bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
+   String bgImage = data['background'];
    Color bgColor = data['isDayTime'] ? Colors.blue : Colors.indigo[700];
 
     return Scaffold(
@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
             image: DecorationImage(
               image: AssetImage('assets/$bgImage'),
               fit: BoxFit.cover,
+              opacity: 0.8
             ),
           ),
           child: Padding(
@@ -42,12 +43,7 @@ class _HomeState extends State<Home> {
                   onPressed: () async{
                    dynamic result = await Navigator.pushNamed(context, '/location');
                    setState(() {
-                     data = {
-                       'time' : result['time'],
-                       'location' : result['location'],
-                       'flag' : result['flag'],
-                       'isDayTime' : result['isDayTime'],
-                     };
+                     data = result;
                    });
                   },
                   icon: Icon(
